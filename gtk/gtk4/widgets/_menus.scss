@@ -333,37 +333,57 @@ popover.menu.background {
     radio {
       min-width: 14px;
       min-height: 14px;
-      color: inherit;
+      // Match the GTK 3 Breeze assets with a 16px outline and a 10px mark.
+      color: gtk("@borders");
       border: 1px solid currentColor;
-      background-color: transparent;
+      background-color: gtk("@theme_button_background_normal");
       background-image: none;
-      box-shadow: none;
+      background-position: center;
+      background-repeat: no-repeat;
+      box-shadow: 1px 1px rgba(35, 38, 41, 0.2);
       -gtk-icon-shadow: none;
       -gtk-icon-source: none;
 
+      &:checked,
+      &:indeterminate {
+        color: gtk("@theme_button_decoration_focus");
+      }
+
       &:disabled {
-        opacity: 0.5;
+        color: gtk("@insensitive_borders");
+        background-color: gtk("@theme_button_background_insensitive");
+
+        &:checked,
+        &:indeterminate {
+          color: gtk("@theme_button_decoration_focus_insensitive");
+        }
       }
     }
 
     check {
-      border-radius: 3px;
-      -gtk-icon-size: 12px;
+      border-radius: 2.5px;
 
-      &:checked {
-        -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+      &:checked,
+      &:indeterminate {
+        background-image: linear-gradient(currentColor, currentColor);
+        background-size: 10px 10px;
       }
 
       &:indeterminate {
-        -gtk-icon-source: -gtk-icontheme("list-remove-symbolic");
+        background-size: 10px 2px;
       }
     }
 
     radio {
       border-radius: 50%;
 
-      &:checked {
-        background-image: radial-gradient(circle, currentColor 3px, transparent 4px);
+      &:checked,
+      &:indeterminate {
+        background-image: radial-gradient(circle, currentColor 4.5px, transparent 5.5px);
+      }
+
+      &:indeterminate {
+        background-image: radial-gradient(circle, transparent 2.5px, currentColor 3.5px, currentColor 4.5px, transparent 5.5px);
       }
     }
   }
