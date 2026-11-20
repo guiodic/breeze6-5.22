@@ -815,80 +815,43 @@ void Helper::renderSeparator(QPainter *painter, const QRectF &rect, const QColor
 }
 
 //______________________________________________________________________________
-void Helper::renderCheckBoxBackground(QPainter *painter,
-                                      const QRectF &rect,
-                                      const QPalette &palette,
-                                      CheckBoxState state,
-                                      bool neutalHighlight,
-                                      bool sunken,
-                                      qreal) const
+void Helper::renderCheckBoxBackground(QPainter *painter, const QRectF &rect, const QColor &background, bool sunken) const
 {
-    // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
-
-    // copy rect
-    QRectF frameRect(rect);
-    frameRect.adjust(2, 2, -2, -2);
-    frameRect = strokedRect(frameRect);
-
+    QRectF frame = rect.adjusted(3, 3, -3, -3);
     if (sunken) {
-        frameRect.translate(1, 1);
+        frame.translate(1, 1);
     }
-
-    QBrush penBrush;
-    if (neutalHighlight) {
-        penBrush = neutralText(palette);
-    } else if (state == CheckOn || state == CheckPartial) {
-        penBrush = palette.highlight().color();
-    } else {
-        penBrush = separatorColor(palette);
-    }
-    painter->setPen(QPen(penBrush, PenWidth::Frame));
-
-    const auto radius = Metrics::CheckBox_Radius;
-
-    painter->setBrush(palette.button().color());
-    painter->drawRoundedRect(frameRect, radius, radius);
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(background);
+    painter->drawRect(frame);
 }
 
 //______________________________________________________________________________
 void Helper::renderCheckBox(QPainter *painter,
                             const QRectF &rect,
-                            const QPalette &palette,
-                            bool mouseOver,
+                            const QColor &markColor,
+                            const QColor &shadow,
+                            bool sunken,
                             CheckBoxState state,
                             CheckBoxState target,
-                            bool neutalHighlight,
-                            bool sunken,
-                            qreal animation,
-                            qreal hoverAnimation) const
+                            qreal animation) const
 {
-    // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
 
-    // copy rect and radius
-    QRectF frameRect(rect);
-    frameRect.adjust(2, 2, -2, -2);
+    QRectF frameRect = rect.adjusted(2, 2, -2, -2);
+    const qreal radius = frameRadius(PenWidth::NoPen, -1);
     if (sunken) {
         frameRect.translate(1, 1);
+    } else {
+        renderRoundedRectShadow(painter, frameRect, shadow, radius);
     }
 
-    if (mouseOver) {
-        painter->save();
+    const qreal outlineRadius = frameRadiusForNewPenWidth(radius, PenWidth::Frame);
+    painter->setPen(QPen(markColor, PenWidth::Frame));
+    painter->setBrush(Qt::NoBrush);
+    painter->drawRoundedRect(strokedRect(frameRect), outlineRadius, outlineRadius);
 
-        if (hoverAnimation != AnimationData::OpacityInvalid) {
-            painter->setOpacity(hoverAnimation);
-        }
-
-        painter->setPen(QPen(neutalHighlight ? neutralText(palette).lighter() : focusColor(palette), PenWidth::Frame));
-        painter->setBrush(Qt::NoBrush);
-
-        painter->drawRoundedRect(frameRect.adjusted(0.5, 0.5, -0.5, -0.5), Metrics::CheckBox_Radius, Metrics::CheckBox_Radius);
-
-        painter->restore();
-    }
-
-    const QColor markColor = neutalHighlight ? neutralText(palette) : focusColor(palette);
     const QRectF mark = frameRect.adjusted(3, 3, -3, -3);
     painter->setPen(Qt::NoPen);
     painter->setBrush(markColor);
@@ -918,80 +881,43 @@ void Helper::renderCheckBox(QPainter *painter,
 }
 
 //______________________________________________________________________________
-void Helper::renderRadioButtonBackground(QPainter *painter,
-                                         const QRectF &rect,
-                                         const QPalette &palette,
-                                         RadioButtonState state,
-                                         bool neutalHighlight,
-                                         bool sunken,
-                                         qreal) const
+void Helper::renderRadioButtonBackground(QPainter *painter, const QRectF &rect, const QColor &background, bool sunken) const
 {
-    // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
-
-    // copy rect
-    QRectF frameRect(rect);
-    frameRect.adjust(2, 2, -2, -2);
-    frameRect.adjust(0.5, 0.5, -0.5, -0.5);
-
+    QRectF frame = rect.adjusted(3, 3, -3, -3);
     if (sunken) {
-        frameRect.translate(1, 1);
+        frame.translate(1, 1);
     }
-
-    QBrush penBrush;
-    if (neutalHighlight) {
-        penBrush = neutralText(palette);
-    } else if (state == RadioOn) {
-        penBrush = palette.highlight().color();
-    } else {
-        penBrush = separatorColor(palette);
-    }
-    painter->setPen(QPen(penBrush, PenWidth::Frame));
-
-    painter->setBrush(palette.button().color());
-    painter->drawEllipse(frameRect);
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(background);
+    painter->drawEllipse(frame);
 }
 
 //______________________________________________________________________________
 void Helper::renderRadioButton(QPainter *painter,
                                const QRectF &rect,
-                               const QPalette &palette,
-                               bool mouseOver,
-                               RadioButtonState state,
-                               bool neutralHighlight,
+                               const QColor &color,
+                               const QColor &shadow,
                                bool sunken,
-                               qreal animation,
-                               qreal animationHover) const
+                               RadioButtonState state,
+                               qreal animation) const
 {
-    // copy rect
-    QRectF frameRect(rect);
-    frameRect.adjust(1, 1, -1, -1);
+    painter->setRenderHint(QPainter::Antialiasing, true);
+
+    QRectF frameRect = rect.adjusted(2, 2, -2, -2);
     if (sunken) {
         frameRect.translate(1, 1);
+    } else {
+        renderEllipseShadow(painter, frameRect, shadow);
     }
+    painter->setPen(QPen(color, PenWidth::Frame));
+    painter->setBrush(Qt::NoBrush);
+    painter->drawEllipse(strokedRect(frameRect));
 
-    if (mouseOver) {
-        painter->save();
-
-        if (animationHover != AnimationData::OpacityInvalid) {
-            painter->setOpacity(animationHover);
-        }
-
-        painter->setPen(QPen(neutralHighlight ? neutralText(palette).lighter() : focusColor(palette), PenWidth::Frame));
-        painter->setBrush(Qt::NoBrush);
-
-        const QRectF contentRect(frameRect.adjusted(1, 1, -1, -1).adjusted(0.5, 0.5, -0.5, -0.5));
-        painter->drawEllipse(contentRect);
-
-        painter->restore();
-    }
-
-    painter->setBrush(neutralHighlight ? neutralText(palette) : focusColor(palette));
+    painter->setBrush(color);
     painter->setPen(Qt::NoPen);
-
-    const qreal radius = std::max<qreal>(0, (std::min(frameRect.width(), frameRect.height()) - 8) / 2);
+    const qreal radius = std::max<qreal>(0, (std::min(frameRect.width(), frameRect.height()) - 6) / 2);
     const QPointF center = frameRect.center();
-
     // mark
     switch (state) {
     case RadioOn:

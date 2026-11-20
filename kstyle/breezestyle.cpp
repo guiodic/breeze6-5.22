@@ -4635,14 +4635,34 @@ bool Style::drawPanelItemViewItemPrimitive(const QStyleOption *option, QPainter 
 }
 
 //___________________________________________________________________________________
+static QPalette indicatorPalette(QPalette palette, bool quickControl)
+{
+    if (quickControl) {
+        // Kirigami can supply a different Window color for the control's color set.
+        const auto applicationPalette = QApplication::palette();
+        const auto group = palette.currentColorGroup();
+        palette.setBrush(group, QPalette::Window, applicationPalette.brush(group, QPalette::Window));
+        palette.setBrush(group, QPalette::WindowText, applicationPalette.brush(group, QPalette::WindowText));
+    }
+    return palette;
+}
+
+static QColor indicatorBackground(const QPalette &palette, const QWidget *widget)
+{
+    const QWidget *parent = widget ? widget->parentWidget() : nullptr;
+    const auto *view = parent ? qobject_cast<const QAbstractItemView *>(parent->parentWidget()) : nullptr;
+    return palette.color(qobject_cast<const QAbstractItemView *>(widget) || (view && view->viewport() == parent) ? QPalette::Base : QPalette::Window);
+}
+
+//___________________________________________________________________________________
 bool Style::drawIndicatorCheckBoxPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     const QObject *styleObject = widget ? widget : option->styleObject;
-    isQtQuickControl(option, widget); // registers it with widgetStateEngine.
+    const bool quickControl = isQtQuickControl(option, widget);
 
     // copy rect and palette
     const auto &rect(option->rect);
-    const auto palette = inputControlPalette(option, widget);
+    const auto palette = indicatorPalette(inputControlPalette(option, widget), quickControl);
 
     // store flags
     const State &state(option->state);
@@ -4661,18 +4681,21 @@ bool Style::drawIndicatorCheckBoxPrimitive(const QStyleOption *option, QPainter 
     // animation state
     _animations->widgetStateEngine().updateState(styleObject, AnimationHover, mouseOver);
     _animations->widgetStateEngine().updateState(styleObject, AnimationPressed, checkBoxState != CheckOff);
-    auto target = checkBoxState;
+    const auto target = checkBoxState;
     if (_animations->widgetStateEngine().isAnimated(styleObject, AnimationPressed)) {
         checkBoxState = CheckAnimated;
     }
     const qreal animation(_animations->widgetStateEngine().opacity(styleObject, AnimationPressed));
 
-    const qreal opacity(_animations->widgetStateEngine().opacity(styleObject, AnimationHover));
+    const auto mode = _animations->widgetStateEngine().isAnimated(styleObject, AnimationHover) ? AnimationHover : AnimationNone;
+    const qreal opacity = _animations->widgetStateEngine().opacity(styleObject, AnimationHover);
+    const auto background = indicatorBackground(palette, widget);
+    const auto color = hasHighlightNeutral(styleObject, option, mouseOver)
+        ? _helper->neutralText(palette)
+        : _helper->checkBoxIndicatorColor(palette, mouseOver, enabled && (target != CheckOff), opacity, mode);
 
-    // render
-    _helper->renderCheckBoxBackground(painter, rect, palette, checkBoxState, hasHighlightNeutral(widget, option, mouseOver), sunken, animation);
-    _helper
-        ->renderCheckBox(painter, rect, palette, mouseOver, checkBoxState, target, hasHighlightNeutral(widget, option, mouseOver), sunken, animation, opacity);
+    _helper->renderCheckBoxBackground(painter, rect, background, sunken);
+    _helper->renderCheckBox(painter, rect, color, _helper->shadowColor(palette), sunken, checkBoxState, target, animation);
     return true;
 }
 
@@ -4680,11 +4703,11 @@ bool Style::drawIndicatorCheckBoxPrimitive(const QStyleOption *option, QPainter 
 bool Style::drawIndicatorRadioButtonPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     const QObject *styleObject = widget ? widget : option->styleObject;
-    isQtQuickControl(option, widget); // registers it with widgetStateEngine.
+    const bool quickControl = isQtQuickControl(option, widget);
 
     // copy rect and palette
     const auto &rect(option->rect);
-    const auto palette = inputControlPalette(option, widget);
+    const auto palette = indicatorPalette(inputControlPalette(option, widget), quickControl);
 
     // store flags
     const State &state(option->state);
@@ -4704,20 +4727,15 @@ bool Style::drawIndicatorRadioButtonPrimitive(const QStyleOption *option, QPaint
     const qreal animation(_animations->widgetStateEngine().opacity(styleObject, AnimationPressed));
 
     // colors
-    const qreal opacity(_animations->widgetStateEngine().opacity(styleObject, AnimationHover));
+    const auto mode = _animations->widgetStateEngine().isAnimated(styleObject, AnimationHover) ? AnimationHover : AnimationNone;
+    const qreal opacity = _animations->widgetStateEngine().opacity(styleObject, AnimationHover);
+    const auto background = indicatorBackground(palette, widget);
+    const auto color = hasHighlightNeutral(styleObject, option, mouseOver)
+        ? _helper->neutralText(palette)
+        : _helper->checkBoxIndicatorColor(palette, mouseOver, enabled && (state & State_On), opacity, mode);
 
-    // render
-    _helper->renderRadioButtonBackground(painter, rect, palette, radioButtonState, hasHighlightNeutral(styleObject, option, mouseOver), sunken, animation);
-    _helper->renderRadioButton(painter,
-                               rect,
-                               palette,
-                               mouseOver,
-                               radioButtonState,
-                               hasHighlightNeutral(styleObject, option, mouseOver),
-                               sunken,
-                               animation,
-                               opacity);
-
+    _helper->renderRadioButtonBackground(painter, rect, background, sunken);
+    _helper->renderRadioButton(painter, rect, color, _helper->shadowColor(palette), sunken, radioButtonState, animation);
     return true;
 }
 
@@ -5745,22 +5763,21 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
         contentsRect.setLeft(checkBoxRect.right() + Metrics::MenuItem_ItemSpacing + 1);
     }
 
-    // render checkbox indicator
-    if (menuItemOption->checkType == QStyleOptionMenuItem::NonExclusive) {
+    if (menuItemOption->checkType != QStyleOptionMenuItem::NotCheckable) {
         checkBoxRect = visualRect(option, checkBoxRect);
+        const bool checked = menuItemOption->checked;
+        const auto background = palette.color(QPalette::Window);
+        const auto color = _helper->checkBoxIndicatorColor(palette, false, enabled && checked);
+        const auto shadow = _helper->shadowColor(palette);
 
-        // checkbox state
-
-        CheckBoxState state(menuItemOption->checked ? CheckOn : CheckOff);
-        _helper->renderCheckBoxBackground(painter, checkBoxRect, palette, state, false, sunken);
-        _helper->renderCheckBox(painter, checkBoxRect, palette, selected, state, state, false, sunken);
-
-    } else if (menuItemOption->checkType == QStyleOptionMenuItem::Exclusive) {
-        checkBoxRect = visualRect(option, checkBoxRect);
-
-        const bool active(menuItemOption->checked);
-        _helper->renderRadioButtonBackground(painter, checkBoxRect, palette, active ? RadioOn : RadioOff, false, sunken);
-        _helper->renderRadioButton(painter, checkBoxRect, palette, selected, active ? RadioOn : RadioOff, false, sunken);
+        if (menuItemOption->checkType == QStyleOptionMenuItem::Exclusive) {
+            _helper->renderRadioButtonBackground(painter, checkBoxRect, background, sunken);
+            _helper->renderRadioButton(painter, checkBoxRect, color, shadow, sunken, checked ? RadioOn : RadioOff);
+        } else {
+            const auto state = checked ? CheckOn : CheckOff;
+            _helper->renderCheckBoxBackground(painter, checkBoxRect, background, sunken);
+            _helper->renderCheckBox(painter, checkBoxRect, color, shadow, sunken, state, state);
+        }
     }
 
     // icon

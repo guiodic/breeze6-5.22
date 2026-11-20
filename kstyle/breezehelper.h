@@ -212,46 +212,24 @@ public:
     //* separator
     void renderSeparator(QPainter *, const QRectF &, const QColor &, bool vertical = false) const;
 
-    //* checkbox
-    void renderCheckBoxBackground(QPainter *,
-                                  const QRectF &,
-                                  const QPalette &palette,
-                                  CheckBoxState state,
-                                  bool neutalHighlight,
-                                  bool sunken,
-                                  qreal animation = AnimationData::OpacityInvalid) const;
-
-    //* checkbox
+    void renderCheckBoxBackground(QPainter *, const QRectF &, const QColor &background, bool sunken) const;
     void renderCheckBox(QPainter *,
                         const QRectF &,
-                        const QPalette &palette,
-                        bool mouseOver,
+                        const QColor &color,
+                        const QColor &shadow,
+                        bool sunken,
                         CheckBoxState state,
                         CheckBoxState target,
-                        bool neutalHighlight,
-                        bool sunken,
-                        qreal animation = AnimationData::OpacityInvalid,
-                        qreal hoverAnimation = AnimationData::OpacityInvalid) const;
+                        qreal animation = AnimationData::OpacityInvalid) const;
 
-    //* radio button
-    void renderRadioButtonBackground(QPainter *,
-                                     const QRectF &,
-                                     const QPalette &palette,
-                                     RadioButtonState state,
-                                     bool neutalHighlight,
-                                     bool sunken,
-                                     qreal animation = AnimationData::OpacityInvalid) const;
-
-    //* radio button
+    void renderRadioButtonBackground(QPainter *, const QRectF &, const QColor &background, bool sunken) const;
     void renderRadioButton(QPainter *,
                            const QRectF &,
-                           const QPalette &palette,
-                           bool mouseOver,
-                           RadioButtonState state,
-                           bool neutalHighlight,
+                           const QColor &color,
+                           const QColor &shadow,
                            bool sunken,
-                           qreal animation = AnimationData::OpacityInvalid,
-                           qreal hoverAnimation = AnimationData::OpacityInvalid) const;
+                           RadioButtonState state,
+                           qreal animation = AnimationData::OpacityInvalid) const;
 
     //* slider groove
     void renderSliderGroove(QPainter *, const QRectF &, const QColor &color) const;
