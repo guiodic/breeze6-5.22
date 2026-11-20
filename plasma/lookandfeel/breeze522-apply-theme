@@ -1,0 +1,11 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+plasma-apply-lookandfeel --apply org.kde.breeze522.desktop || exit "$?"
+
+# Plasma's global theme format has no setting for the GTK theme.
+gdbus call --session --dest org.kde.GtkConfig --object-path /GtkConfig \
+    --method org.kde.GtkConfig.setGtkTheme Breeze-5.22 >/dev/null || {
+    printf '%s\n' 'Plasma theme applied. Enable kde-gtk-config or select Breeze-5.22 in the GNOME/GTK Application Style settings.' >&2
+    exit 1
+}

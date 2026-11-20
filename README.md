@@ -23,6 +23,22 @@ Choose **Breeze 5.22** in **Application Style** for application menus and
 buttons. **Plasma Style** controls the panel, launcher and other shell widgets
 through the bundled [Plasma desktop themes](https://github.com/guiodic/plasma6-style-5.22/tree/Plasma6-5.22).
 
+## Global Theme
+
+Choose **Breeze 5.22** in **System Settings → Colors & Themes → Global Theme**
+to apply its color scheme, Plasma style, cursor, KWin decoration and Qt
+Widgets style together. To apply the same global theme and select the bundled
+GTK theme in one command, run this from your Plasma session with
+`kde-gtk-config` installed:
+
+```sh
+breeze522-apply-theme
+```
+
+Plasma's Global Theme panel does not select GTK themes. You can also select
+**Breeze-5.22** under **Application Style → Configure GNOME/GTK Application
+Style**.
+
 ## Qt Quick Controls
 
 For Qt 6 applications, select **Breeze 5.22** in **Application Style** and

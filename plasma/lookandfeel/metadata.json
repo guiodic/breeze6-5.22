@@ -1,0 +1,12 @@
+{
+    "KPackageStructure": "Plasma/LookAndFeel",
+    "KPlugin": {
+        "Id": "org.kde.breeze522.desktop",
+        "Name": "Breeze 5.22",
+        "Name[it]": "Brezza 5.22",
+        "Description": "The Breeze 5.22 appearance for Plasma 6",
+        "Description[it]": "L'aspetto di Brezza 5.22 per Plasma 6",
+        "Icon": "preferences-desktop-theme",
+        "License": "GPL-2.0-or-later"
+    }
+}

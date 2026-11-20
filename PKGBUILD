@@ -10,7 +10,8 @@ depends=('frameworkintegration' 'frameworkintegration5' 'kcmutils' 'kcolorscheme
          'kdecoration' 'kguiaddons' 'kguiaddons5' 'ki18n' 'kiconthemes' 'kiconthemes5'
          'kwindowsystem' 'kwindowsystem5' 'qt5-base' 'qt5-declarative' 'qt5-x11extras'
          'qqc2-desktop-style' 'qt6-base>=6.11' 'qt6-declarative' 'qt6-svg')
-optdepends=('plasma-workspace: use the bundled Plasma desktop themes'
+optdepends=('plasma-workspace: apply the bundled Plasma global theme'
+            'kde-gtk-config: apply the GTK theme with breeze522-apply-theme'
             'gtk3: use the bundled GTK 3 styles' 'gtk4: use the bundled GTK 4 styles')
 provides=("breeze-5.22-git=$pkgver" 'plasma6-style-5.22' 'plasma6-style-5.22-git')
 conflicts=('breeze-5.22-git' 'breeze-oldstyle-git' 'plasma6-style-5.22' 'plasma6-style-5.22-git')

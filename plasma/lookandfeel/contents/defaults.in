@@ -1,0 +1,9 @@
+[kdeglobals][KDE]
+widgetStyle=Breeze-5.22
+
+[kdeglobals][General]
+ColorScheme=Breeze522
+
+[plasmarc][Theme]
+name=breeze-5.22
+@BREEZE522_CURSOR_DEFAULT@@BREEZE522_DECORATION_DEFAULT@
