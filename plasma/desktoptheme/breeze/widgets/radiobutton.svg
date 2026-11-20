@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90" height="38" viewBox="0 0 90 38">
+    <!-- Plasma 6 element names with the Plasma 5.22 action button and checkmark styling. -->
+    <style id="current-color-scheme" type="text/css">
+        .ColorScheme-Background { color: #eff0f1; }
+        .ColorScheme-ButtonText { color: #232629; }
+        .ColorScheme-ButtonHover { color: #93cee9; }
+        .ColorScheme-ButtonFocus { color: #3daee9; }
+    </style>
+    <rect id="hint-size" x="1" y="1" width="16" height="16" fill="#ff00ff"/>
+    <g id="normal" transform="translate(27 9)">
+        <circle class="ColorScheme-Background" r="8" fill="currentColor"/>
+        <circle class="ColorScheme-ButtonText" r="7.5" fill="none" stroke="currentColor" opacity=".3"/>
+    </g>
+    <circle id="hover" class="ColorScheme-ButtonHover" cx="45" cy="9" r="7.5"
+            fill="none" stroke="currentColor"/>
+    <circle id="focus" class="ColorScheme-ButtonFocus" cx="63" cy="9" r="7.5"
+            fill="none" stroke="currentColor"/>
+    <circle id="checked" class="ColorScheme-ButtonFocus" cx="81" cy="9" r="7.75"
+            fill="none" stroke="currentColor" stroke-width=".5"/>
+    <circle id="symbol" class="ColorScheme-ButtonFocus" cx="9" cy="28" r="4.88" fill="currentColor"/>
+    <circle id="shadow" cx="27" cy="28" r="8" fill="#000" fill-opacity="0"/>
+</svg>

@@ -1,0 +1,5 @@
+module org.kde.breeze522
+import org.kde.desktop auto
+ComboBox 1.0 ComboBox.qml
+Menu 1.0 Menu.qml
+MenuItem 1.0 MenuItem.qml

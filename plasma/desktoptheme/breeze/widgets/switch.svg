@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="82" height="50" viewBox="0 0 82 50">
+    <!-- Plasma 6 element names with the Plasma 5.22 bar meter and action button styling. -->
+    <style id="current-color-scheme" type="text/css">
+        .ColorScheme-Background { color: #eff0f1; }
+        .ColorScheme-ButtonText { color: #232629; }
+        .ColorScheme-ButtonHover { color: #93cee9; }
+        .ColorScheme-ButtonFocus { color: #3daee9; }
+    </style>
+    <rect id="hint-bar-size" x="34" y="1" width="27" height="10" fill="#ff00ff"/>
+    <path id="hint-stretch-borders" d="M65 1h1v1h-1z" fill="#ff00ff"/>
+    <g fill="#bdc3c7" transform="translate(1 1)">
+        <path id="inactive-topleft" d="M3 0a3 3 0 0 0-3 3h3z"/>
+        <path id="inactive-top" d="M4 0h2v3H4z"/>
+        <path id="inactive-topright" d="M7 0a3 3 0 0 1 3 3H7z"/>
+        <path id="inactive-left" d="M0 4h3v2H0z"/>
+        <path id="inactive-center" d="M4 4h2v2H4z"/>
+        <path id="inactive-right" d="M7 4h3v2H7z"/>
+        <path id="inactive-bottomleft" d="M0 7a3 3 0 0 0 3 3V7z"/>
+        <path id="inactive-bottom" d="M4 7h2v3H4z"/>
+        <path id="inactive-bottomright" d="M10 7a3 3 0 0 1-3 3V7z"/>
+    </g>
+    <g class="ColorScheme-ButtonFocus" fill="currentColor" transform="translate(15 1)">
+        <path id="active-topleft" d="M3 0a3 3 0 0 0-3 3h3z"/>
+        <path id="active-top" d="M4 0h2v3H4z"/>
+        <path id="active-topright" d="M7 0a3 3 0 0 1 3 3H7z"/>
+        <path id="active-left" d="M0 4h3v2H0z"/>
+        <path id="active-center" d="M4 4h2v2H4z"/>
+        <path id="active-right" d="M7 4h3v2H7z"/>
+        <path id="active-bottomleft" d="M0 7a3 3 0 0 0 3 3V7z"/>
+        <path id="active-bottom" d="M4 7h2v3H4z"/>
+        <path id="active-bottomright" d="M10 7a3 3 0 0 1-3 3V7z"/>
+    </g>
+    <g id="handle" transform="translate(10 25)">
+        <circle class="ColorScheme-Background" r="9" fill="currentColor"/>
+        <circle class="ColorScheme-ButtonText" r="8.72" fill="none" stroke="currentColor" stroke-width=".56" opacity=".3"/>
+    </g>
+    <g id="handle-hover" transform="translate(30 25)">
+        <circle class="ColorScheme-ButtonHover" r="9" fill="currentColor"/>
+        <circle class="ColorScheme-Background" r="8.44" fill="currentColor"/>
+    </g>
+    <g id="handle-pressed" transform="translate(50 25)">
+        <circle class="ColorScheme-ButtonFocus" r="9" fill="currentColor"/>
+        <circle class="ColorScheme-Background" r="8.44" fill="currentColor"/>
+    </g>
+    <circle id="handle-focus" class="ColorScheme-ButtonFocus" cx="70" cy="25" r="8.72"
+            fill="none" stroke="currentColor" stroke-width=".56"/>
+    <circle id="handle-shadow" cx="10" cy="43" r="5" fill="#000" fill-opacity="0"/>
+</svg>

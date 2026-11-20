@@ -1,0 +1,185 @@
+[ColorEffects:Disabled]
+Color=56,56,56
+ColorAmount=0
+ColorEffect=0
+ContrastAmount=0.65
+ContrastEffect=1
+IntensityAmount=0.1
+IntensityEffect=2
+
+[ColorEffects:Inactive]
+ChangeSelectionColor=true
+Color=112,111,110
+ColorAmount=0.025
+ColorEffect=2
+ContrastAmount=0.1
+ContrastEffect=2
+Enable=false
+IntensityAmount=0
+IntensityEffect=0
+
+[Colors:Button]
+BackgroundAlternate=163,212,250
+BackgroundNormal=247,247,247
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=112,125,138
+ForegroundLink=41,128,185
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=35,38,41
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Complementary]
+BackgroundAlternate=27,30,32
+BackgroundNormal=42,46,50
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=161,169,177
+ForegroundLink=29,153,243
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=252,252,252
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Header]
+BackgroundAlternate=239,240,241
+BackgroundNormal=222,224,226
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=112,125,138
+ForegroundLink=41,128,185
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=35,38,41
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Header][Inactive]
+BackgroundAlternate=227,229,231
+BackgroundNormal=239,240,241
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=112,125,138
+ForegroundLink=41,128,185
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=35,38,41
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Selection]
+BackgroundAlternate=163,212,250
+BackgroundNormal=61,174,233
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=112,125,138
+ForegroundLink=41,128,185
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=255,255,255
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Tooltip]
+BackgroundAlternate=239,240,241
+BackgroundNormal=247,247,247
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=112,125,138
+ForegroundLink=41,128,185
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=35,38,41
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:View]
+BackgroundAlternate=247,247,247
+BackgroundNormal=255,255,255
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=112,125,138
+ForegroundLink=41,128,185
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=35,38,41
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Window]
+BackgroundAlternate=227,229,231
+BackgroundNormal=239,240,241
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=112,125,138
+ForegroundLink=41,128,185
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=35,38,41
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[General]
+ColorScheme=BreezeLight522
+Name=Breeze Light 5.22
+Name[az]=Breeze - İşıqlı 5.22
+Name[ca]=Brisa clara 5.22
+Name[ca@valencia]=Brisa clara 5.22
+Name[cs]=Breeze Světlé 5.22
+Name[da]=Breeze Light 5.22
+Name[de]=Breeze Hell 5.22
+Name[el]=Breeze φωτεινό 5.22
+Name[en_GB]=Breeze Light 5.22
+Name[es]=Brisa claro 5.22
+Name[et]=Breeze hele 5.22
+Name[eu]=Breeze argia 5.22
+Name[fi]=Vaalea Breeze 5.22
+Name[fr]=Brise clair 5.22
+Name[gl]=Breeze claro 5.22
+Name[hi]=ब्रीज़ हलका 5.22
+Name[hu]=Breeze Light 5.22
+Name[ia]=Brisa Ligier 5.22
+Name[id]=Breeze Terang 5.22
+Name[it]=Brezza chiaro 5.22
+Name[ja]=Breeze ライト 5.22
+Name[ko]=밝은 Breeze 5.22
+Name[lt]=Breeze šviesus 5.22
+Name[nl]=Breeze Light 5.22
+Name[nn]=Breeze lys 5.22
+Name[pa]=ਬਰੀਜ਼ ਹਲਕਾ 5.22
+Name[pl]=Jasna Bryza 5.22
+Name[pt]=Brisa Clara 5.22
+Name[pt_BR]=Breeze Light 5.22
+Name[ro]=Briză, luminos 5.22
+Name[ru]=Breeze, светлый вариант 5.22
+Name[sk]=Svetlý vánok 5.22
+Name[sl]=Sapica lahka 5.22
+Name[sv]=Breeze Light 5.22
+Name[tg]=Насими сабук 5.22
+Name[uk]=Світла Breeze 5.22
+Name[x-test]=xxBreeze Lightxx 5.22
+Name[zh_CN]=Breeze 微风亮色 5.22
+Name[zh_TW]=Breeze Light 5.22
+shadeSortColumn=true
+
+[KDE]
+contrast=4
+
+[WM]
+activeBackground=227,229,231
+activeBlend=227,229,231
+activeForeground=35,38,41
+inactiveBackground=239,240,241
+inactiveBlend=239,240,241
+inactiveForeground=112,125,138

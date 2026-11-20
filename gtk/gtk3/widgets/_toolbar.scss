@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+/************
+ * Toolbars *
+ ************/
+%toolbar {
+  -GtkWidget-window-dragging: true;
+  padding: 4px;
+  background-color: gtk("@theme_bg_color");
+}
+toolbar {
+  @extend %toolbar;
+  padding: 4px 3px 3px 4px;
+  &:backdrop {
+    background-color: gtk("@theme_unfocused_bg_color");
+    box-shadow: none;
+  }
+  button {
+    margin: 2px;
+    padding: 3px;
+    &.image-button,
+    &.text-button.image-button {
+      padding: 3px;
+    }
+  }
+  separator {
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+  entry {
+    margin: 3px;
+  }
+  // on OSD
+  .osd & {
+    background-color: transparent;
+  }
+  &.osd {
+    padding: 13px;
+    border: none;
+    border-radius: $r;
+    background-color: gtk("@theme_bg_color");
+    &:backdrop {
+      border-color: gtk("@unfocused_borders");
+      background-color: gtk("@theme_unfocused_bg_color");
+      box-shadow: none;
+    }
+    &.left,
+    &.right,
+    &.top,
+    &.bottom {
+      border-radius: 0;
+    } // positional classes for `attached` osd toolbars
+  }
+}
+
+//searchbar, location-bar & inline-toolbar
+.inline-toolbar {
+  @extend %toolbar;
+  @extend %inset-bar;
+  border-width: 0px 0px 1px 0px;
+  padding: 3px;
+  border-radius: 0;
+}
+searchbar,
+.location-bar {
+  @extend %toolbar;
+  @extend %inset-bar;
+  border-width: 0px 0px 1px 0px;
+  padding: 3px;
+}
+
+%inset-bar {
+  border-style: solid;
+  border-color: gtk("@borders");
+  text-shadow: none;
+  background-color: gtk("@theme_bg_color");
+}
+
+// Keep latched toolbar toggles distinct from focused or suggested actions.
+toolbar,
+.toolbar,
+.inkscape-toolbar,
+#tool-toolbar {
+  button:checked:not(.suggested-action):not(.destructive-action) {
+    color: gtk("@theme_button_foreground_normal");
+    background-color: gtkmix(gtk("@theme_bg_color"), gtk("@theme_fg_color"), 0.2);
+    border-color: gtk("@borders");
+    background-image: none;
+    box-shadow: none;
+
+    &:hover:not(:disabled) {
+      border-color: gtk("@theme_button_decoration_hover");
+    }
+
+    &:backdrop {
+      color: gtk("@theme_button_foreground_backdrop");
+      background-color: gtkmix(gtk("@theme_unfocused_bg_color"), gtk("@theme_unfocused_fg_color"), 0.2);
+      border-color: gtk("@unfocused_borders");
+    }
+
+    &:disabled {
+      color: gtk("@theme_button_foreground_insensitive");
+      background-color: gtkmix(gtk("@theme_bg_color"), gtk("@theme_fg_color"), 0.1);
+      border-color: gtk("@insensitive_borders");
+    }
+  }
+}

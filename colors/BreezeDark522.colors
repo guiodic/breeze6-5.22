@@ -1,0 +1,194 @@
+[ColorEffects:Disabled]
+Color=56,56,56
+ColorAmount=0
+ColorEffect=0
+ContrastAmount=0.65
+ContrastEffect=1
+IntensityAmount=0.1
+IntensityEffect=2
+
+[ColorEffects:Inactive]
+ChangeSelectionColor=true
+Color=112,111,110
+ColorAmount=0.025
+ColorEffect=2
+ContrastAmount=0.1
+ContrastEffect=2
+Enable=false
+IntensityAmount=0
+IntensityEffect=0
+
+[Colors:Button]
+BackgroundAlternate=30,87,116
+BackgroundNormal=49,54,59
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=161,169,177
+ForegroundLink=29,153,243
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=252,252,252
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Complementary]
+BackgroundAlternate=30,87,116
+BackgroundNormal=42,46,50
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=161,169,177
+ForegroundLink=29,153,243
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=252,252,252
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Header]
+BackgroundAlternate=42,46,50
+BackgroundNormal=49,54,59
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=161,169,177
+ForegroundLink=29,153,243
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=252,252,252
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Header][Inactive]
+BackgroundAlternate=49,54,59
+BackgroundNormal=42,46,50
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=161,169,177
+ForegroundLink=29,153,243
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=252,252,252
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Selection]
+BackgroundAlternate=30,87,116
+BackgroundNormal=61,174,233
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=252,252,252
+ForegroundInactive=161,169,177
+ForegroundLink=253,188,75
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=252,252,252
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Tooltip]
+BackgroundAlternate=42,46,50
+BackgroundNormal=49,54,59
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=161,169,177
+ForegroundLink=29,153,243
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=252,252,252
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:View]
+BackgroundAlternate=35,38,41
+BackgroundNormal=27,30,32
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=161,169,177
+ForegroundLink=29,153,243
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=252,252,252
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[Colors:Window]
+BackgroundAlternate=49,54,59
+BackgroundNormal=42,46,50
+DecorationFocus=61,174,233
+DecorationHover=61,174,233
+ForegroundActive=61,174,233
+ForegroundInactive=161,169,177
+ForegroundLink=29,153,243
+ForegroundNegative=218,68,83
+ForegroundNeutral=246,116,0
+ForegroundNormal=252,252,252
+ForegroundPositive=39,174,96
+ForegroundVisited=155,89,182
+
+[General]
+ColorScheme=BreezeDark522
+Name=Breeze Dark 5.22
+Name[ar]=نسيم داكن 5.22
+Name[az]=Breeze - Tünd 5.22
+Name[bs]=Breeze tamna 5.22
+Name[ca]=Brisa fosca 5.22
+Name[ca@valencia]=Brisa fosca 5.22
+Name[cs]=Breeze Tmavé 5.22
+Name[da]=Breeze Dark 5.22
+Name[de]=Breeze-Dunkel 5.22
+Name[el]=Breeze σκούρο 5.22
+Name[en_GB]=Breeze Dark 5.22
+Name[es]=Brisa oscuro 5.22
+Name[et]=Breeze tume 5.22
+Name[eu]=Breeze iluna 5.22
+Name[fi]=Tumma Breeze 5.22
+Name[fr]=Brise sombre 5.22
+Name[gl]=Breeze Dark 5.22
+Name[he]=Breeze Dark 5.22
+Name[hi]=ब्रीज़ गहरा 5.22
+Name[hu]=Breeze Dark 5.22
+Name[ia]=Brisa obscure 5.22
+Name[id]=Breeze Gelap 5.22
+Name[it]=Brezza scuro 5.22
+Name[ja]=Breeze ダーク 5.22
+Name[ko]=어두운 Breeze 5.22
+Name[lt]=Breeze tamsus 5.22
+Name[nb]=Breeze mørk 5.22
+Name[nl]=Breeze Dark 5.22
+Name[nn]=Breeze mørk 5.22
+Name[pa]=ਬਰੀਜ਼ ਗੂੜ੍ਹਾ 5.22
+Name[pl]=Ciemna Bryza 5.22
+Name[pt]=Brisa Escura 5.22
+Name[pt_BR]=Breeze Dark 5.22
+Name[ro]=Briză, întunecat 5.22
+Name[ru]=Breeze, тёмный вариант 5.22
+Name[sk]=Tmavý vánok 5.22
+Name[sl]=Sapica temna 5.22
+Name[sr]=Поветарац тамни 5.22
+Name[sr@ijekavian]=Поветарац тамни 5.22
+Name[sr@ijekavianlatin]=Povetarac tamni 5.22
+Name[sr@latin]=Povetarac tamni 5.22
+Name[sv]=Breeze mörk 5.22
+Name[tg]=Насими торик 5.22
+Name[tr]=Koyu Esinti 5.22
+Name[uk]=Темна Breeze 5.22
+Name[x-test]=xxBreeze Darkxx 5.22
+Name[zh_CN]=Breeze 微风暗色 5.22
+Name[zh_TW]=Breeze Dark 5.22
+shadeSortColumn=true
+
+[KDE]
+contrast=4
+
+[WM]
+activeBackground=49,54,59
+activeBlend=252,252,252
+activeForeground=252,252,252
+inactiveBackground=42,46,50
+inactiveBlend=161,169,177
+inactiveForeground=161,169,177
