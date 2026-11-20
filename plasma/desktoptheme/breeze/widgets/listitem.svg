@@ -448,6 +448,9 @@
       .ColorScheme-Background{
         color:#eff0f1;
       }
+      .ColorScheme-Highlight{
+        color:#3daee9;
+      }
       .ColorScheme-ViewText {
         color:#31363b;
       }
@@ -795,14 +798,14 @@
      id="hover-center"
      d="m 59.9997,7.3841577 0,11.0000053 10.999999,0 0,-11.0000053 -10.999999,0 z"
      style="opacity:0.2;fill:currentColor;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     class="ColorScheme-ViewFocus"
+     class="ColorScheme-Highlight"
      inkscape:label="#pressed-center-5" />
   <path
      inkscape:connector-curvature="0"
      id="hover-right"
      d="m 70.9997,7.3841577 0,11.0000053 2,0 c 6.68e-4,-0.01835 0,-0.0344 0,-0.05289 l 0,-10.8942303 c 0,-0.0185 6.68e-4,-0.03453 0,-0.05288 l -2,0 z"
      style="opacity:0.2;fill:currentColor;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     class="ColorScheme-ViewFocus"
+     class="ColorScheme-Highlight"
      inkscape:label="#pressed-right-0" />
   <path
      sodipodi:nodetypes="ccccsscc"
@@ -811,13 +814,13 @@
      d="m 59.9997,5.3841107 0,2.000047 10.999999,0 0,-2.000047 c -0.0041,-6.7e-4 0.0045,0 3.01e-4,0 l -10.98844,0 c -0.004,0 -0.008,-6.7e-4 -0.0119,0 z"
      style="opacity:0.2;fill:currentColor;fill-opacity:1;fill-rule:nonzero;stroke:none"
      inkscape:label="#path4824"
-     class="ColorScheme-ViewFocus" />
+     class="ColorScheme-Highlight" />
   <path
      inkscape:connector-curvature="0"
      id="hover-left"
      d="m 58,7.3841577 c -6.7e-4,0.01835 0,0.03439 0,0.05288 l 0,10.8942303 c 0,0.0185 -6.7e-4,0.03453 0,0.05288 l 2,0 0,-11.0000053 -2,0 z"
      style="opacity:0.2;fill:currentColor;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     class="ColorScheme-ViewFocus"
+     class="ColorScheme-Highlight"
      inkscape:label="#pressed-left-7" />
   <path
      sodipodi:nodetypes="cccccc"
@@ -826,7 +829,7 @@
      d="m 60,18.384143 0,2 11,0 0,-2 -11,0 z"
      style="opacity:0.2;fill:currentColor;fill-opacity:1;fill-rule:nonzero"
      inkscape:label="#path4850"
-     class="ColorScheme-ViewFocus" />
+     class="ColorScheme-Highlight" />
   <path
      style="opacity:0.2;fill:currentColor;fill-opacity:1;fill-rule:nonzero;stroke:none"
      d="m 57.999667,5.3841107 0,2.000047 1.999722,0 0,-2.000047 c -7.45e-4,-6.7e-4 8.18e-4,0 5.5e-5,0 l -1.997621,0 c -7.27e-4,0 -0.0015,-6.7e-4 -0.0022,0 z"
@@ -834,7 +837,7 @@
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="ccccsscc"
      inkscape:label="#path3154"
-     class="ColorScheme-ViewFocus" />
+     class="ColorScheme-Highlight" />
   <path
      sodipodi:nodetypes="ccccsscc"
      inkscape:connector-curvature="0"
@@ -842,7 +845,7 @@
      d="m 71.000044,5.3841107 0,2.000047 1.999722,0 0,-2.000047 c -7.45e-4,-6.7e-4 8.18e-4,0 5.5e-5,0 l -1.997621,0 c -7.27e-4,0 -0.0015,-6.7e-4 -0.0022,0 z"
      style="opacity:0.2;fill:currentColor;fill-opacity:1;fill-rule:nonzero;stroke:none"
      inkscape:label="#path3156"
-     class="ColorScheme-ViewFocus" />
+     class="ColorScheme-Highlight" />
   <path
      style="opacity:0.2;fill:currentColor;fill-opacity:1;fill-rule:nonzero;stroke:none"
      d="m 71.000044,18.384096 0,2.000047 1.999722,0 0,-2.000047 c -7.45e-4,-6.7e-4 8.18e-4,0 5.5e-5,0 l -1.997621,0 c -7.27e-4,0 -0.0015,-6.7e-4 -0.0022,0 z"
@@ -850,7 +853,7 @@
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="ccccsscc"
      inkscape:label="#path3158"
-     class="ColorScheme-ViewFocus" />
+     class="ColorScheme-Highlight" />
   <path
      sodipodi:nodetypes="ccccsscc"
      inkscape:connector-curvature="0"
@@ -858,5 +861,5 @@
      d="m 58.000044,18.384096 0,2.000047 1.999722,0 0,-2.000047 c -7.45e-4,-6.7e-4 8.18e-4,0 5.5e-5,0 l -1.997621,0 c -7.27e-4,0 -0.0015,-6.7e-4 -0.0022,0 z"
      style="opacity:0.2;fill:currentColor;fill-opacity:1;fill-rule:nonzero;stroke:none"
      inkscape:label="#path3160"
-     class="ColorScheme-ViewFocus" />
+     class="ColorScheme-Highlight" />
 </svg>
