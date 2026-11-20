@@ -1,4 +1,4 @@
-# Breeze Old Style for Plasma 6
+# Breeze 5.22 for Plasma 6
 
 The Breeze 5.22.5 palettes and compiled cursors are taken from KDE's
 [v5.22.5 release](https://github.com/KDE/breeze/tree/v5.22.5). The Qt Widgets
@@ -63,12 +63,12 @@ increase the row height.
 ## Arch Linux
 
 Install `base-devel` and `curl`, then run `makepkg -si` as a regular user from the root of
-this repository. The `breeze-oldstyle-git` package builds both Qt styles and the
+this repository. The `breeze6-5.22-git` package builds both Qt styles and the
 KWin decoration and installs the Plasma and GTK styles from a source archive
 of the latest commit on `Plasma6-5.22`.
 It downloads the source snapshot without cloning the Git history. Run
-`makepkg -si` again to update. If you are migrating from `breeze-5.22-git`,
-let pacman remove the old package when prompted. If you have the standalone
+`makepkg -si` again to update. If you are migrating from `breeze-5.22-git` or
+`breeze-oldstyle-git`, let pacman remove the old package when prompted. If you have the standalone
 `plasma6-style-5.22` or `plasma6-style-5.22-git` package, let pacman remove it
 when prompted. The combined package provides the same three Plasma styles.
 
