@@ -3800,7 +3800,7 @@ QSize Style::itemViewItemSizeFromContents(const QStyleOption *option, const QSiz
 bool Style::drawFramePrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     // copy palette and rect
-    const auto &palette(option->palette);
+    const auto palette = inputControlPalette(option, widget);
     const auto &rect(option->rect);
 
     // copy state
@@ -3858,7 +3858,7 @@ bool Style::drawFramePrimitive(const QStyleOption *option, QPainter *painter, co
 bool Style::drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     // copy palette and rect
-    const auto &palette(option->palette);
+    const auto palette = inputControlPalette(option, widget);
     const auto &rect(option->rect);
 
     if (widget) {
@@ -4397,7 +4397,7 @@ bool Style::drawPanelButtonCommandPrimitive(const QStyleOption *option, QPainter
     stateProperties["hasNeutralHighlight"] = hasNeutralHighlight;
     stateProperties["roundButton"] = roundButton;
 
-    _helper->renderButtonFrame(painter, option->rect, option->palette, stateProperties, focusAnimation, hoverAnimation);
+    _helper->renderButtonFrame(painter, option->rect, inputControlPalette(option, widget), stateProperties, focusAnimation, hoverAnimation);
 
     return true;
 }
@@ -4642,7 +4642,7 @@ bool Style::drawIndicatorCheckBoxPrimitive(const QStyleOption *option, QPainter 
 
     // copy rect and palette
     const auto &rect(option->rect);
-    const auto &palette(option->palette);
+    const auto palette = inputControlPalette(option, widget);
 
     // store flags
     const State &state(option->state);
@@ -4684,7 +4684,7 @@ bool Style::drawIndicatorRadioButtonPrimitive(const QStyleOption *option, QPaint
 
     // copy rect and palette
     const auto &rect(option->rect);
-    const auto &palette(option->palette);
+    const auto palette = inputControlPalette(option, widget);
 
     // store flags
     const State &state(option->state);
@@ -7503,7 +7503,7 @@ bool Style::drawComboBoxComplexControl(const QStyleOptionComplex *option, QPaint
         if (editable) {
             flat |= (option->rect.height() <= 2 * Metrics::Frame_FrameWidth + Metrics::MenuButton_IndicatorWidth);
             if (flat) {
-                const auto &background = option->palette.color(QPalette::Base);
+                const auto background = inputControlPalette(option, widget).color(QPalette::Base);
                 painter->setBrush(background);
                 painter->setPen(Qt::NoPen);
                 painter->drawRect(option->rect);
@@ -7525,7 +7525,7 @@ bool Style::drawComboBoxComplexControl(const QStyleOptionComplex *option, QPaint
             stateProperties["flat"] = flat;
             stateProperties["hasNeutralHighlight"] = hasNeutralHighlight;
 
-            _helper->renderButtonFrame(painter, option->rect, option->palette, stateProperties, focusAnimation, hoverAnimation);
+            _helper->renderButtonFrame(painter, option->rect, inputControlPalette(option, widget), stateProperties, focusAnimation, hoverAnimation);
         }
     }
 
@@ -7604,7 +7604,7 @@ bool Style::drawSpinBoxComplexControl(const QStyleOptionComplex *option, QPainte
     }
 
     // store palette and rect
-    const auto &palette(option->palette);
+    const auto palette = inputControlPalette(option, widget);
     const auto &rect(option->rect);
 
     if (option->subControls & SC_SpinBoxFrame) {
@@ -8355,6 +8355,23 @@ QIcon Style::titleBarButtonIcon(StandardPixmap standardPixmap, const QStyleOptio
     }
 
     return icon;
+}
+
+//____________________________________________________________________
+QPalette Style::inputControlPalette(const QStyleOption *option, const QWidget *widget) const
+{
+#if BREEZE_HAVE_QTQUICK
+    if (!widget && !(option->state & State_Enabled) && qobject_cast<QQuickItem *>(option->styleObject)) {
+        // qqc2-desktop-style supplies a Kirigami palette with a different disabled
+        // background. Paint disabled inputs with the same palette as Qt Widgets.
+        QPalette palette = QApplication::palette();
+        palette.setCurrentColorGroup(QPalette::Disabled);
+        return palette;
+    }
+#else
+    Q_UNUSED(widget);
+#endif
+    return option->palette;
 }
 
 //____________________________________________________________________

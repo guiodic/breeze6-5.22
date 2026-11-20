@@ -389,6 +389,7 @@ private:
     QIcon titleBarButtonIcon(StandardPixmap, const QStyleOption *, const QWidget *) const;
 
     //* return true if option corresponds to QtQuick control
+    QPalette inputControlPalette(const QStyleOption *, const QWidget *) const;
     bool isQtQuickControl(const QStyleOption *, const QWidget *) const;
 
     //@}
