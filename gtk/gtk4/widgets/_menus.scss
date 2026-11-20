@@ -215,38 +215,6 @@ modelbutton.flat,
     @extend %undecorated_button;
     color: gtk("@theme_unfocused_fg_color");
   }
-  check,
-  radio {
-    -gtk-icon-palette: error gtk("@theme_button_decoration_focus"),
-      success gtk("@borders"), warning gtk("@theme_button_background_normal");
-    -gtk-icon-shadow: 1px 1px rgba(35, 38, 41, 0.2);
-
-    &:hover {
-      -gtk-icon-palette: error gtk("@theme_button_decoration_focus"),
-        success gtk("@theme_button_decoration_focus"),
-        warning gtk("@theme_button_background_normal");
-    }
-    &:disabled {
-      -gtk-icon-palette: error gtk("@theme_button_decoration_focus_insensitive"),
-        success gtk("@insensitive_borders"),
-        warning gtk("@theme_button_background_insensitive");
-    }
-  }
-  @each $type in ("check", "radio") {
-    #{$type} {
-      -gtk-icon-source: -gtk-recolor(
-        url("../assets/breeze-#{$type}-unchecked-symbolic.svg")
-      );
-      @each $state in ("checked", "indeterminate") {
-        &:#{$state} {
-          -gtk-icon-source: -gtk-recolor(
-            url("../assets/breeze-#{$type}-#{$state}-symbolic.svg")
-          );
-        }
-      }
-    }
-  }
-
   // FIXME: remove the following when the checks/radios rewrite lands
   check:last-child,
   radio:last-child {
@@ -286,8 +254,6 @@ menu {
 }
 
 popover.background {
-  $shadow: rgba(0, 0, 0, 0.25);
-
   padding: 0px;
   border-radius: $r * 2;
   background-color: gtk("@theme_bg_color");
@@ -339,6 +305,67 @@ popover.background {
 
   > contents {
     margin: 6px;
+  }
+}
+
+// GTK 4 reserves space for the popup shadow around its contents node.
+popover.menu.background {
+  background-color: transparent;
+  border: none;
+
+  > arrow,
+  > contents {
+    background-color: gtk("@theme_bg_color");
+    border: 1px solid gtk("@borders");
+  }
+
+  > contents {
+    margin: 0;
+    padding: 6px;
+    border-radius: $r * 2;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25), 0 1px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  modelbutton,
+  checkbutton,
+  radiobutton {
+    check,
+    radio {
+      min-width: 14px;
+      min-height: 14px;
+      color: inherit;
+      border: 1px solid currentColor;
+      background-color: transparent;
+      background-image: none;
+      box-shadow: none;
+      -gtk-icon-shadow: none;
+      -gtk-icon-source: none;
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+
+    check {
+      border-radius: 3px;
+      -gtk-icon-size: 12px;
+
+      &:checked {
+        -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+      }
+
+      &:indeterminate {
+        -gtk-icon-source: -gtk-icontheme("list-remove-symbolic");
+      }
+    }
+
+    radio {
+      border-radius: 50%;
+
+      &:checked {
+        background-image: radial-gradient(circle, currentColor 3px, transparent 4px);
+      }
+    }
   }
 }
 
