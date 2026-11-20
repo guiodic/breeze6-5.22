@@ -50,9 +50,10 @@ headerbar {
       }
     }
     &:active, &:checked {
-      @include button(active);
-      &:hover {
-      @include button(active-hover);
+      @include classic-pressed-button;
+      border-color: gtk("@theme_button_decoration_focus");
+      &:hover:not(:disabled) {
+        border-color: gtk("@theme_button_decoration_hover");
       }
       &:backdrop {
         background-image: none;

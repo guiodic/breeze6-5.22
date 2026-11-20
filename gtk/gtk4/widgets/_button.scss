@@ -157,6 +157,13 @@ $_dot_color: gtk("@theme_button_decoration_focus");
   }
 }
 
+@mixin classic-pressed-button {
+  color: gtk("@theme_button_foreground_normal");
+  background-color: gtkmix(gtk("@theme_button_background_normal"), gtk("@theme_button_foreground_normal"), 0.2);
+  background-image: none;
+  box-shadow: none;
+}
+
 %buttons {
 
 
@@ -189,10 +196,7 @@ $_dot_color: gtk("@theme_button_decoration_focus");
     }
     &:active,
     &:checked {
-      color: gtk("@theme_button_foreground_normal");
-      background-color: gtkmix(gtk("@theme_button_background_normal"), gtk("@theme_button_foreground_normal"), 0.2);
-      background-image: none;
-      box-shadow: none;
+      @include classic-pressed-button;
       transition-duration: 50ms;
 
       &:hover:not(:disabled) {
