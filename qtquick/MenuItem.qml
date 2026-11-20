@@ -61,7 +61,9 @@ T.MenuItem {
             visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons)
                 || (controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== "")
             source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
-            color: controlRoot.icon.color
+            isMask: controlRoot.selected && (controlRoot.icon.name.endsWith("-symbolic")
+                || controlRoot.icon.source.toString().endsWith("-symbolic.svg"))
+            color: isMask ? Kirigami.Theme.highlightedTextColor : controlRoot.icon.color
             selected: controlRoot.selected
             Layout.preferredHeight: Kirigami.Settings.hasTransientTouchInput ? Kirigami.Units.iconSizes.smallMedium : Kirigami.Units.iconSizes.small
             Layout.preferredWidth: Layout.preferredHeight

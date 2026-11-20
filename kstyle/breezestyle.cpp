@@ -37,6 +37,7 @@
 #include <QGraphicsProxyWidget>
 #include <QGraphicsView>
 #include <QGroupBox>
+#include <QImage>
 #include <QItemDelegate>
 #include <QLineEdit>
 #include <QMainWindow>
@@ -5677,6 +5678,35 @@ bool Style::drawMenuBarItemControl(const QStyleOption *option, QPainter *painter
 }
 
 //___________________________________________________________________________________
+static bool isMonochromeMenuIcon(const QPixmap &pixmap)
+{
+    if (!pixmap.hasAlphaChannel()) {
+        return false;
+    }
+
+    const QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32);
+    QRgb color = 0;
+    bool hasTransparentPixel = false;
+    for (int y = 0; y < image.height(); ++y) {
+        const auto *row = reinterpret_cast<const QRgb *>(image.constScanLine(y));
+        for (int x = 0; x < image.width(); ++x) {
+            const QRgb pixel = row[x];
+            hasTransparentPixel |= qAlpha(pixel) == 0;
+            // Ignore faint antialiasing pixels and allow for unpremultiplication rounding.
+            if (qAlpha(pixel) < 128) {
+                continue;
+            }
+            if (color == 0) {
+                color = pixel;
+            } else if (std::abs(qRed(pixel) - qRed(color)) > 3 || std::abs(qGreen(pixel) - qGreen(color)) > 3
+                       || std::abs(qBlue(pixel) - qBlue(color)) > 3) {
+                return false;
+            }
+        }
+    }
+    return color != 0 && hasTransparentPixel;
+}
+
 bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     // cast option and check
@@ -5701,6 +5731,7 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
     const bool sunken = enabled && (state & (State_On | State_Sunken));
     const bool reverseLayout = option->direction == Qt::RightToLeft;
     const bool useStrongFocus = StyleConfigData::menuItemDrawStrongFocus();
+    const bool highlighted = useStrongFocus && (selected || sunken);
 
     if (menuItemOption->menuItemType == QStyleOptionMenuItem::Separator) {
         const auto separatorColor = KColorUtils::mix(palette.color(QPalette::Window), palette.color(QPalette::WindowText), 0.25);
@@ -5803,7 +5834,7 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
         // icon mode
         QIcon::Mode mode;
         if (enabled) {
-            mode = useStrongFocus && (selected || sunken) ? QIcon::Selected : QIcon::Normal;
+            mode = highlighted ? QIcon::Selected : QIcon::Normal;
         } else {
             mode = QIcon::Disabled;
         }
@@ -5811,7 +5842,12 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
         // icon state
         const QIcon::State iconState(sunken ? QIcon::On : QIcon::Off);
         const qreal dpr = painter->device() ? painter->device()->devicePixelRatioF() : qApp->devicePixelRatio();
-        const QPixmap pixmap = _helper->coloredIcon(menuItemOption->icon, menuItemOption->palette, iconRect.size(), dpr, mode, iconState);
+        QPixmap pixmap = _helper->coloredIcon(menuItemOption->icon, palette, iconRect.size(), dpr, mode, iconState);
+        if (highlighted && isMonochromeMenuIcon(pixmap)) {
+            QPainter iconPainter(&pixmap);
+            iconPainter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+            iconPainter.fillRect(QRectF(QPointF(), QSizeF(pixmap.size()) / pixmap.devicePixelRatio()), palette.color(QPalette::HighlightedText));
+        }
         drawItemPixmap(painter, iconRect, Qt::AlignCenter, pixmap);
     }
 
@@ -5830,7 +5866,7 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
         const ArrowOrientation orientation(reverseLayout ? ArrowLeft : ArrowRight);
 
         // color
-        const QColor arrowColor = _helper->arrowColor(palette, useStrongFocus && (selected || sunken) ? QPalette::HighlightedText : QPalette::WindowText);
+        const QColor arrowColor = _helper->arrowColor(palette, highlighted ? QPalette::HighlightedText : QPalette::WindowText);
 
         // render
         _helper->renderArrow(painter, arrowRect, arrowColor, orientation);
@@ -5848,7 +5884,7 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
         painter->setFont(menuItemOption->font);
 
         // color role
-        QPalette::ColorRole role = useStrongFocus && (selected || sunken) ? QPalette::HighlightedText : QPalette::WindowText;
+        QPalette::ColorRole role = highlighted ? QPalette::HighlightedText : QPalette::WindowText;
 
         // locate accelerator and render
         const int tabPosition(text.indexOf(QLatin1Char('\t')));
