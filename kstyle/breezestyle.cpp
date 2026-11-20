@@ -5073,6 +5073,46 @@ bool Style::drawPanelStatusBarPrimitive(const QStyleOption *option, QPainter *pa
 }
 
 //___________________________________________________________________________________
+static bool isMonochromeIcon(const QPixmap &pixmap)
+{
+    if (!pixmap.hasAlphaChannel()) {
+        return false;
+    }
+
+    const QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32);
+    QRgb color = 0;
+    bool hasTransparentPixel = false;
+    for (int y = 0; y < image.height(); ++y) {
+        const auto *row = reinterpret_cast<const QRgb *>(image.constScanLine(y));
+        for (int x = 0; x < image.width(); ++x) {
+            const QRgb pixel = row[x];
+            hasTransparentPixel |= qAlpha(pixel) == 0;
+            // Ignore faint antialiasing pixels and allow for unpremultiplication rounding.
+            if (qAlpha(pixel) < 128) {
+                continue;
+            }
+            if (color == 0) {
+                color = pixel;
+            } else if (std::abs(qRed(pixel) - qRed(color)) > 3 || std::abs(qGreen(pixel) - qGreen(color)) > 3
+                       || std::abs(qBlue(pixel) - qBlue(color)) > 3) {
+                return false;
+            }
+        }
+    }
+    return color != 0 && hasTransparentPixel;
+}
+
+static QPixmap tintMonochromeIcon(QPixmap pixmap, const QColor &highlightedColor)
+{
+    if (highlightedColor.isValid() && isMonochromeIcon(pixmap)) {
+        QPainter painter(&pixmap);
+        painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+        painter.fillRect(QRectF(QPointF(), QSizeF(pixmap.size()) / pixmap.devicePixelRatio()), highlightedColor);
+    }
+    return pixmap;
+}
+
+//___________________________________________________________________________________
 bool Style::drawPushButtonLabelControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     // cast option and check
@@ -5179,8 +5219,9 @@ bool Style::drawPushButtonLabelControl(const QStyleOption *option, QPainter *pai
         }
 
         const qreal dpr = painter->device() ? painter->device()->devicePixelRatioF() : qApp->devicePixelRatio();
-        const auto pixmap = _helper->coloredIcon(buttonOption->icon, buttonOption->palette, iconSize, dpr, iconMode, iconState);
-        drawItemPixmap(painter, iconRect, Qt::AlignCenter, pixmap);
+        const auto pixmap = _helper->coloredIcon(buttonOption->icon, palette, iconSize, dpr, iconMode, iconState);
+        const QColor tint = textRole == QPalette::HighlightedText ? palette.color(textRole) : QColor();
+        drawItemPixmap(painter, iconRect, Qt::AlignCenter, tintMonochromeIcon(pixmap, tint));
     }
 
     // render text
@@ -5678,45 +5719,6 @@ bool Style::drawMenuBarItemControl(const QStyleOption *option, QPainter *painter
 }
 
 //___________________________________________________________________________________
-static bool isMonochromeMenuIcon(const QPixmap &pixmap)
-{
-    if (!pixmap.hasAlphaChannel()) {
-        return false;
-    }
-
-    const QImage image = pixmap.toImage().convertToFormat(QImage::Format_ARGB32);
-    QRgb color = 0;
-    bool hasTransparentPixel = false;
-    for (int y = 0; y < image.height(); ++y) {
-        const auto *row = reinterpret_cast<const QRgb *>(image.constScanLine(y));
-        for (int x = 0; x < image.width(); ++x) {
-            const QRgb pixel = row[x];
-            hasTransparentPixel |= qAlpha(pixel) == 0;
-            // Ignore faint antialiasing pixels and allow for unpremultiplication rounding.
-            if (qAlpha(pixel) < 128) {
-                continue;
-            }
-            if (color == 0) {
-                color = pixel;
-            } else if (std::abs(qRed(pixel) - qRed(color)) > 3 || std::abs(qGreen(pixel) - qGreen(color)) > 3
-                       || std::abs(qBlue(pixel) - qBlue(color)) > 3) {
-                return false;
-            }
-        }
-    }
-    return color != 0 && hasTransparentPixel;
-}
-
-static QPixmap tintedMenuIcon(QPixmap pixmap, const QColor &highlightedColor)
-{
-    if (highlightedColor.isValid() && isMonochromeMenuIcon(pixmap)) {
-        QPainter painter(&pixmap);
-        painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-        painter.fillRect(QRectF(QPointF(), QSizeF(pixmap.size()) / pixmap.devicePixelRatio()), highlightedColor);
-    }
-    return pixmap;
-}
-
 bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     // cast option and check
@@ -5729,7 +5731,7 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
         if (iconColor.isValid()) {
             const qreal dpr = painter->device()->devicePixelRatioF();
             const auto pixmap = _helper->coloredIcon(menuItemOption->icon, option->palette, option->rect.size(), dpr, QIcon::Selected);
-            drawItemPixmap(painter, option->rect, Qt::AlignCenter, tintedMenuIcon(pixmap, iconColor));
+            drawItemPixmap(painter, option->rect, Qt::AlignCenter, tintMonochromeIcon(pixmap, iconColor));
             return true;
         }
     }
@@ -5864,7 +5866,7 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
         const qreal dpr = painter->device() ? painter->device()->devicePixelRatioF() : qApp->devicePixelRatio();
         const QColor iconColor = highlighted ? palette.color(QPalette::HighlightedText) : QColor();
         const auto pixmap = _helper->coloredIcon(menuItemOption->icon, palette, iconRect.size(), dpr, mode, iconState);
-        drawItemPixmap(painter, iconRect, Qt::AlignCenter, tintedMenuIcon(pixmap, iconColor));
+        drawItemPixmap(painter, iconRect, Qt::AlignCenter, tintMonochromeIcon(pixmap, iconColor));
     }
 
     // arrow
