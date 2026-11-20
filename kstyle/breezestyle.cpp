@@ -5707,6 +5707,16 @@ static bool isMonochromeMenuIcon(const QPixmap &pixmap)
     return color != 0 && hasTransparentPixel;
 }
 
+static QPixmap tintedMenuIcon(QPixmap pixmap, const QColor &highlightedColor)
+{
+    if (highlightedColor.isValid() && isMonochromeMenuIcon(pixmap)) {
+        QPainter painter(&pixmap);
+        painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+        painter.fillRect(QRectF(QPointF(), QSizeF(pixmap.size()) / pixmap.devicePixelRatio()), highlightedColor);
+    }
+    return pixmap;
+}
+
 bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, const QWidget *widget) const
 {
     // cast option and check
@@ -5714,6 +5724,16 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
     if (!menuItemOption) {
         return true;
     }
+    if (!widget && option->styleObject) {
+        const QColor iconColor = option->styleObject->property("breezeMenuIconColor").value<QColor>();
+        if (iconColor.isValid()) {
+            const qreal dpr = painter->device()->devicePixelRatioF();
+            const auto pixmap = _helper->coloredIcon(menuItemOption->icon, option->palette, option->rect.size(), dpr, QIcon::Selected);
+            drawItemPixmap(painter, option->rect, Qt::AlignCenter, tintedMenuIcon(pixmap, iconColor));
+            return true;
+        }
+    }
+
     if (menuItemOption->menuItemType == QStyleOptionMenuItem::EmptyArea) {
         return true;
     }
@@ -5842,13 +5862,9 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
         // icon state
         const QIcon::State iconState(sunken ? QIcon::On : QIcon::Off);
         const qreal dpr = painter->device() ? painter->device()->devicePixelRatioF() : qApp->devicePixelRatio();
-        QPixmap pixmap = _helper->coloredIcon(menuItemOption->icon, palette, iconRect.size(), dpr, mode, iconState);
-        if (highlighted && isMonochromeMenuIcon(pixmap)) {
-            QPainter iconPainter(&pixmap);
-            iconPainter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-            iconPainter.fillRect(QRectF(QPointF(), QSizeF(pixmap.size()) / pixmap.devicePixelRatio()), palette.color(QPalette::HighlightedText));
-        }
-        drawItemPixmap(painter, iconRect, Qt::AlignCenter, pixmap);
+        const QColor iconColor = highlighted ? palette.color(QPalette::HighlightedText) : QColor();
+        const auto pixmap = _helper->coloredIcon(menuItemOption->icon, palette, iconRect.size(), dpr, mode, iconState);
+        drawItemPixmap(painter, iconRect, Qt::AlignCenter, tintedMenuIcon(pixmap, iconColor));
     }
 
     // arrow

@@ -11,11 +11,17 @@
 
 namespace Breeze
 {
+// Keep the fork distinguishable from stock Breeze in qqc2-desktop-style.
+class Breeze522Style final : public Style
+{
+    Q_OBJECT
+};
+
 //_________________________________________________
 QStyle *StylePlugin::create(const QString &key)
 {
     if (key.compare(QLatin1String("breeze-5.22"), Qt::CaseInsensitive) == 0) {
-        return new Style;
+        return new Breeze522Style;
     }
     return nullptr;
 }
@@ -27,3 +33,5 @@ QStringList StylePlugin::keys() const
 }
 
 }
+
+#include "breezestyleplugin.moc"

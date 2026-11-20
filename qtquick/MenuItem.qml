@@ -12,6 +12,7 @@ import QtQuick.Templates as T
 import org.kde.kirigami as Kirigami
 import org.kde.desktop as Desktop
 import org.kde.desktop.private as Private
+import org.kde.qqc2desktopstyle.private as StylePrivate
 
 T.MenuItem {
     id: controlRoot
@@ -56,17 +57,37 @@ T.MenuItem {
         Item {
             Layout.preferredWidth: (controlRoot.ListView.view && controlRoot.ListView.view.hasCheckables) || controlRoot.checkable ? controlRoot.indicator.width : Kirigami.Units.smallSpacing
         }
-        Kirigami.Icon {
+        Item {
             Layout.alignment: Qt.AlignVCenter
             visible: (controlRoot.ListView.view && controlRoot.ListView.view.hasIcons)
                 || (controlRoot.icon.name !== "" || controlRoot.icon.source.toString() !== "")
-            source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
-            isMask: controlRoot.selected && (controlRoot.icon.name.endsWith("-symbolic")
-                || controlRoot.icon.source.toString().endsWith("-symbolic.svg"))
-            color: isMask ? Kirigami.Theme.highlightedTextColor : controlRoot.icon.color
-            selected: controlRoot.selected
             Layout.preferredHeight: Kirigami.Settings.hasTransientTouchInput ? Kirigami.Units.iconSizes.smallMedium : Kirigami.Units.iconSizes.small
             Layout.preferredWidth: Layout.preferredHeight
+
+            Kirigami.Icon {
+                anchors.fill: parent
+                visible: !highlightedIcon.visible
+                source: controlRoot.icon.name !== "" ? controlRoot.icon.name : controlRoot.icon.source
+                isMask: controlRoot.selected && (controlRoot.icon.name.endsWith("-symbolic")
+                    || controlRoot.icon.source.toString().endsWith("-symbolic.svg"))
+                color: isMask ? Kirigami.Theme.highlightedTextColor : controlRoot.icon.color
+                selected: controlRoot.selected
+            }
+
+            StylePrivate.StyleItem {
+                id: highlightedIcon
+                anchors.fill: parent
+                visible: controlRoot.selected && styleName === "breeze::breeze522"
+                readonly property color breezeMenuIconColor: Kirigami.Theme.highlightedTextColor
+                control: controlRoot
+                elementType: "menuitem"
+                selected: controlRoot.selected
+                properties: ({
+                    type: 1, // qqc2-desktop-style ItemType
+                    icon: controlRoot.icon.name || controlRoot.icon.source,
+                    iconColor: controlRoot.icon.color
+                })
+            }
         }
         Desktop.Label {
             id: label
