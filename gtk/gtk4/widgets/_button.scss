@@ -307,35 +307,38 @@ button {
       @include button(normal);
       background-color: $button_color;
       color: gtk("@theme_button_foreground_active");
+      &:not(.flat):not(:disabled) {
+        @include accent-icon-colors;
+      }
       &.flat {
         @include button(undecorated);
         color: $button_color;
       }
       &:hover {
         @include button(hover);
-        color: white; //! FIXME - No hardcoded colors.
+        color: gtk("@theme_button_foreground_active");
         background-color: $button_color;
       }
       &:active, &:checked, &:focus {
         @include button(active);
         background-color: $button_color;
-        color: white;
+        color: gtk("@theme_button_foreground_active");
       }
       &:backdrop, &.flat:backdrop {
         @include button(backdrop);
         background-color: $button_color;
-        color: white;
+        color: gtk("@theme_button_foreground_active");
         &:active, &:checked, &:focus {
           @include button(backdrop-active);
           background-color: $button_color;
-          color: white;
+          color: gtk("@theme_button_foreground_active");
         }
         &:disabled {
           @include button(backdrop-insensitive);
           &:active, &:checked, &:focus {
             @include button(backdrop-insensitive-active);
             background-color: $button_color;
-            color: white;
+            color: gtk("@theme_button_foreground_active");
           }
         }
       }
@@ -348,7 +351,7 @@ button {
         &:active, &:checked, &:focus {
           @include button(insensitive-active);
           background-color: $button_color;
-          color: white;
+          color: gtk("@theme_button_foreground_active");
         }
       }
     }

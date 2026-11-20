@@ -192,6 +192,9 @@ $_dot_color: gtk("@theme_button_decoration_focus");
     @include button(hover);
     -gtk-icon-effect: none; // Do we want this?
   }
+  &:focus:not(.flat):not(:disabled) {
+    @include accent-icon-colors;
+  }
   &:active,
   &:checked,
   &:focus {
@@ -313,13 +316,16 @@ button {
       @include button(normal);
       background-color: $button_color;
       color: gtk("@theme_button_foreground_active");
+      &:not(.flat):not(:disabled) {
+        @include accent-icon-colors;
+      }
       &.flat {
         @include button(undecorated);
         color: $button_color;
       }
       &:hover {
         @include button(hover);
-        color: white; //! FIXME - No hardcoded colors.
+        color: gtk("@theme_button_foreground_active");
         background-color: $button_color;
       }
       &:active,
@@ -327,19 +333,19 @@ button {
       &:focus {
         @include button(active);
         background-color: $button_color;
-        color: white;
+        color: gtk("@theme_button_foreground_active");
       }
       &:backdrop,
       &.flat:backdrop {
         @include button(backdrop);
         background-color: $button_color;
-        color: white;
+        color: gtk("@theme_button_foreground_active");
         &:active,
         &:checked,
         &:focus {
           @include button(backdrop-active);
           background-color: $button_color;
-          color: white;
+          color: gtk("@theme_button_foreground_active");
         }
         &:disabled {
           @include button(backdrop-insensitive);
@@ -348,7 +354,7 @@ button {
           &:focus {
             @include button(backdrop-insensitive-active);
             background-color: $button_color;
-            color: white;
+            color: gtk("@theme_button_foreground_active");
           }
         }
       }
@@ -365,7 +371,7 @@ button {
         &:focus {
           @include button(insensitive-active);
           background-color: $button_color;
-          color: white;
+          color: gtk("@theme_button_foreground_active");
         }
       }
     }

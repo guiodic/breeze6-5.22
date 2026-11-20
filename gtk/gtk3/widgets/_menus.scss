@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 @mixin item-highlight {
+  @include accent-icon-colors;
   @if $new-highlight {
     background-color: gtk("@theme_selected_bg_color");
     color: gtk("@theme_button_foreground_active");
@@ -199,10 +200,12 @@ modelbutton.flat,
   &:hover {
     background-color: gtk("@theme_button_decoration_focus");
     color: gtk("@theme_button_foreground_active");
+    @include accent-icon-colors;
   }
   &:selected {
     background-color: gtk("@theme_button_decoration_focus");
     color: gtk("@theme_button_foreground_active");
+    @include accent-icon-colors;
   }
   &:backdrop,
   &:backdrop:hover {

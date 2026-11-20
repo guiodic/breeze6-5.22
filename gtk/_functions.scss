@@ -7,6 +7,14 @@
   @return unquote("#{$str}_breeze");
 }
 
+// GTK applies the icon palette only to symbolic icon data.
+@mixin accent-icon-colors {
+  image {
+    color: inherit;
+    -gtk-icon-palette: success currentColor, warning currentColor, error currentColor;
+  }
+}
+
 // alpha function
 @function gtkalpha($c, $a) {
   @return unquote("alpha(#{$c},#{$a})");
